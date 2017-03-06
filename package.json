@@ -1,6 +1,6 @@
 {
   "name": "dataspec",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Specify how data should look like, assert validity and generate examples",
   "main": "src/dataspec.js",
   "url": "https://github.com/lucaong/dataspec",

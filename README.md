@@ -23,11 +23,10 @@ const color = ds.objectOf({
 
 // Validate:
 
-color.isValid({ name: 'red', rgb: [255, 0, 0] }) // => true
-color.validate('not a color') // => throws SpecError
-color.explainErrors({ name: 'infrared', [-2, 0, 0] })
-// => [ [ [ 'rgb', '0' ],
-//    '-2 does not satisfy predicate x => x >= 0 && x < 256' ] ]
+color.isValid({ name: 'red', rgb: [255, 0, 0] })      // => true
+color.validate('not a color')                         // => throws SpecError
+color.explainErrors({ name: 'infrared', [-2, 0, 0] }) // => [ [ [ 'rgb', '0' ],
+                                                      //    '-2 does not satisfy predicate x => x >= 0 && x < 256' ] ]
 
 // Generate:
 

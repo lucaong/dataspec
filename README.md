@@ -2,22 +2,43 @@
 
 Specify how data should look like, assert validity and generate examples.
 
+Specifications are built from functions (returning `true` or `false` depending
+on wether the specification is met or not) and can be composed together.
+
+Once some specification is built, it can be used to validate data and to
+generate example data.
+
 
 ## Example
 
 ```javascript
-const ds = require('dataspec')
+const { spec, arrayOf, objectOf } = require('dataspec')
 
-const string = ds.spec(x => typeof x === 'string').examples('foo', 'bar', 'baz', 'qux')
+// A specification for strings
+const string = spec(x => typeof x === 'string')
+  .examples('foo', 'bar', 'baz', 'qux')
 
-const integer = ds.spec(Number.isInteger).examples(-102, -8, 0, 3, 74, 101, 200, 10279)
+// A specification for missing values (null or undefined)
+const absent = spec(x => x === null || x === undefined)
+  .examples(null, undefined)
 
-const rgbChannel = integer.and(x => x >= 0 && x < 256)
+// Specifications can be composed, for example to specify a string that can be
+// absent, the previous two specifications can be combined
+const maybeString = string.or(absent)
 
-const rgb = ds.arrayOf(rgbChannel).and(x => x.length === 3)
+// A specification for integers
+const integer = spec(Number.isInteger)
+  .examples(-102, -8, 0, 3, 74, 101, 200, 10279)
 
-const color = ds.objectOf({
-  name: string,
+// A byte is specified as an integer greater or equal than 0 and smaller than 256
+const byte = integer.and(x => x >= 0 && x < 256)
+
+// An rgb value is an array of 3 bytes
+const rgb = arrayOf(byte).and(x => x.length === 3)
+
+// A color is an object that has an optional name and a rgb value
+const color = objectOf({
+  name: maybeString,
   rgb: rgb
 })
 

@@ -22,12 +22,12 @@ const Spec = extend(Object, {
     try {
       isValid = this.predicate(obj)
     } catch (e) {
-      return [print(obj) + ' throws error on predicate ' + this.specName]
+      return [print(obj) + ' throws error on specification ' + this.specName]
     }
     if (isValid) {
       return []
     } else {
-      return [print(obj) + ' does not satisfy predicate ' + this.specName]
+      return [print(obj) + ' does not satisfy specification ' + this.specName]
     }
   },
   explainErrors: function (obj) {
@@ -99,10 +99,10 @@ const Or = extend(Spec, {
   },
   errors: function (obj) {
     const leftErrors = this.left.errors(obj)
-    if (isOk(leftErrors)) return leftErrors
+    if (isOk(leftErrors)) return []
     const rightErrors = this.right.errors(obj)
-    if (isOk(rightErrors)) return rightErrors
-    return leftErrors.concat(rightErrors)
+    if (isOk(rightErrors)) return []
+    return [print(obj) + ' does not satisfy specification ' + this.specName]
   }
 })
 

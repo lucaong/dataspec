@@ -1,4 +1,5 @@
 const { Spec, ArraySpec, ObjectSpec } = require('./dataspec/spec')
+const { SpecError } = require('./dataspec/errors')
 
 const Dataspec = {
   spec: function (predicate, name) {
@@ -13,7 +14,8 @@ const Dataspec = {
   },
   arrayOf: function (spec) {
     return new ArraySpec(spec)
-  }
+  },
+  SpecError
 }
 
 module.exports = Dataspec

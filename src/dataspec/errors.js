@@ -1,11 +1,13 @@
 const { extend, listErrors } = require('./utils')
 
 const SpecError = extend(Error, {
-  constructor: function (errors) {
+  constructor: function SpecError (errors) {
+    Error.call(this)
+    Error.captureStackTrace(this, this.constructor)
+    const explanation = listErrors(errors)
     this.name = 'SpecError'
-    this.message = 'Specification not satisfied:\n' +
-      listErrors(errors).map(([k, e]) => k.join('.') + ': ' + e).join('\n')
-    this.stack = (new Error()).stack
+    this.explanation = explanation
+    this.message = explanation.map(([k, e]) => k.join('.') + ': ' + e).join('\n')
   }
 })
 

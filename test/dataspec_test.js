@@ -26,7 +26,7 @@ describe('Spec', () => {
     it('includes function name in the error', () => {
       const errors = isInteger.errors('abc')
       expect(errors.length).to.eq(1)
-      expect(errors[0]).to.eq('"abc" does not satisfy predicate isInteger')
+      expect(errors[0]).to.eq('"abc" does not satisfy specification isInteger')
     })
 
     it('includes function source in the error, if it is an anonymous function', () => {
@@ -84,9 +84,9 @@ describe('Spec', () => {
       expect(isPositiveOrInteger.errors(-1.42)).not.to.be.empty
     })
 
-    it('includes all errors from left and right', () => {
+    it('mentions both left and right specifications in the error', () => {
       const errors = isPositiveOrInteger.errors(-1.23)
-      expect(errors).to.eql(isInteger.errors(-1.23).concat(isPositive.errors(-1.23)))
+      expect(errors).to.eql(["-1.23 does not satisfy specification isInteger or n => n > 0"])
     })
   })
 
@@ -137,8 +137,8 @@ describe('Spec', () => {
 
       const [errors] = spec.errors({ foo: 1, bar: -2, baz: {} })
       expect(errors.foo).not.to.be.defined
-      expect(errors.bar).to.eql(['-2 does not satisfy predicate n => n > 0'])
-      expect(errors.baz[0].qux).to.eql(['undefined does not satisfy predicate n => n > 0'])
+      expect(errors.bar).to.eql(['-2 does not satisfy specification n => n > 0'])
+      expect(errors.baz[0].qux).to.eql(['undefined does not satisfy specification n => n > 0'])
     })
   })
 

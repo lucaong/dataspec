@@ -1,14 +1,16 @@
 {
   "name": "dataspec",
   "version": "1.0.0",
-  "description": "Assert how data should look like",
+  "description": "Specify how data should look like, assert validity and generate examples",
   "main": "src/dataspec.js",
+  "url": "https://github.com/lucaong/dataspec",
   "scripts": {
     "test": "./node_modules/.bin/mocha -r test/test_setup.js --recursive"
   },
   "keywords": [
     "data",
-    "spec"
+    "spec",
+    "dataspec"
   ],
   "author": "Luca Ongaro",
   "license": "MIT",

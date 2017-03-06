@@ -1,0 +1,19 @@
+{
+  "name": "dataspec",
+  "version": "1.0.0",
+  "description": "Assert how data should look like",
+  "main": "src/dataspec.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha -r test/test_setup.js --recursive"
+  },
+  "keywords": [
+    "data",
+    "spec"
+  ],
+  "author": "Luca Ongaro",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}

@@ -1,15 +1,16 @@
 # Dataspec
 
-Specify how data should look like, assert validity and generate examples.
+Write specification for data, assert validity and generate examples.
 
-Specifications are built from functions (returning `true` or `false` depending
-on wether the specification is met or not) and can be composed together.
+Specifications are built from plain predicate functions (returning `true` or
+`false` depending on wether the specification is met or not) and can be composed
+together.
 
 Once some specification is built, it can be used to validate data and to
 generate example data.
 
 
-## Example
+## Example Usage
 
 ```javascript
 const { spec, arrayOf, objectOf } = require('dataspec')
@@ -41,13 +42,11 @@ const color = objectOf({
 })
 
 // Data validation:
-
 color.isValid({ name: 'red', rgb: [255, 0, 0] })      // => true
 color.validate('not a color')                         // => throws SpecError
 color.explainErrors({ name: 'infrared', [-2, 0, 0] }) // => [ [ [ 'rgb', '0' ],
                                                       //    '-2 does not satisfy predicate x => x >= 0 && x < 256' ] ]
 
 // Data generation:
-
 color.generate() // => returns a random example, like `{ name: 'qux', rgb: [ 101, 3, 0 ] }`
 ```

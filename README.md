@@ -32,26 +32,24 @@ const maybeString = string.or(absent)
 const integer = spec(Number.isInteger)
   .generator(() => Math.floor(Math.random() * 2000) - 1000)
 
-// A byte is specified as an integer greater or equal than 0 and smaller than 256
+// Specifications about composite data (objects and arrays) are also easy:
 const byte = integer.and(x => x >= 0 && x < 256)
 
-// An rgb value is an array of 3 bytes
 const rgb = arrayOf(byte).and(x => x.length === 3)
 
-// A color is an object that has an optional name and a rgb value
 const color = objectOf({
   name: maybeString,
   rgb: rgb
 })
 
-// Validate:
+// Data validation:
 
 color.isValid({ name: 'red', rgb: [255, 0, 0] })      // => true
 color.validate('not a color')                         // => throws SpecError
 color.explainErrors({ name: 'infrared', [-2, 0, 0] }) // => [ [ [ 'rgb', '0' ],
                                                       //    '-2 does not satisfy predicate x => x >= 0 && x < 256' ] ]
 
-// Generate:
+// Data generation:
 
-color.generate() // => returns a random example, e.g. { name: 'qux', rgb: [ 101, 3, 0 ] }
+color.generate() // => returns a random example, like `{ name: 'qux', rgb: [ 101, 3, 0 ] }`
 ```

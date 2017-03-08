@@ -34,9 +34,7 @@ const integer = spec(Number.isInteger)
 
 // Specifications about composite data (objects and arrays) are also easy:
 const byte = integer.and(x => x >= 0 && x < 256)
-
 const rgb = arrayOf(byte).and(x => x.length === 3)
-
 const color = objectOf({
   name: maybeString,
   rgb: rgb

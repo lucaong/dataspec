@@ -23,7 +23,9 @@ const absent = spec(x => x === null || x === undefined)
   .examples(null, undefined)
 
 // Specifications can be composed, for example to specify a string that can be
-// absent, the previous two specifications can be combined
+// absent, the previous two specifications can be combined.
+// Whenever possible, Dataspec generates the examples for you composing from
+// the previous specifications.
 const maybeString = string.or(absent)
 
 // A specification for integers

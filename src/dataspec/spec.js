@@ -75,7 +75,7 @@ const And = extend(Spec, {
   constructor: function (left, right) {
     this.left = left
     this.right = right
-    this.specName = left.specName + ' and ' + right.specName
+    this.specName = '(' + left.specName + ' and ' + right.specName + ')'
     const iter = this.right.exampleIterable.randomZip(this.left.exampleIterable)
     try {
       this.exampleIterable = iter.filter(x => this.left.isValid(x) && this.right.isValid(x))
@@ -93,7 +93,7 @@ const Or = extend(Spec, {
   constructor: function (left, right) {
     this.left = left
     this.right = right
-    this.specName = left.specName + ' or ' + right.specName
+    this.specName = '(' + left.specName + ' or ' + right.specName + ')'
     if (this.left.hasExamples() && this.right.hasExamples()) {
       this.exampleIterable = this.left.exampleIterable.randomZip(this.right.exampleIterable)
     }

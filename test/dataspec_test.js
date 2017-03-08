@@ -93,7 +93,7 @@ describe('Spec', () => {
 
     it('mentions both left and right specifications in the error', () => {
       const errors = positiveOrInteger.errors(-1.23)
-      expect(errors).to.eql(["-1.23 does not satisfy specification isInteger or n => n > 0"])
+      expect(errors).to.eql(["-1.23 does not satisfy specification (isInteger or n => n > 0)"])
     })
 
     it('composes examples', () => {

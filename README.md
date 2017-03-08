@@ -28,9 +28,9 @@ const absent = spec(x => x === null || x === undefined)
 // the previous specifications.
 const maybeString = string.or(absent)
 
-// A specification for integers
+// A specification for integers (providing examples via a generator function).
 const integer = spec(Number.isInteger)
-  .examples(-102, -8, 0, 3, 74, 101, 200, 10279)
+  .generator(() => Math.floor(Math.random() * 2000) - 1000)
 
 // A byte is specified as an integer greater or equal than 0 and smaller than 256
 const byte = integer.and(x => x >= 0 && x < 256)

@@ -56,6 +56,12 @@ const Spec = extend(Object, {
     examples.forEach(example => this.validate(example))
     return new WithExamples(this, examples)
   },
+  generator: function (fn) {
+    for (let i = 0; i < 10; i++) {
+      this.validate(fn())
+    }
+    return new WithGenerator(this, fn)
+  },
   generate: function () {
     this.mustHaveExamples()
     if (!this._exampleGenerator) {
@@ -117,6 +123,17 @@ const WithExamples = extend(Spec, {
   }
 })
 
+const WithGenerator = extend(Spec, {
+  constructor: function (spec, generator) {
+    this.spec = spec
+    this.exampleIterable = new FunctionIterable(generator)
+    this.specName = spec.specName
+  },
+  errors: function (obj) {
+    return this.spec.errors(obj)
+  }
+})
+
 const ObjectSpec = extend(Spec, {
   constructor: function (specs, name) {
     this.keys = Object.keys(specs)
@@ -124,7 +141,7 @@ const ObjectSpec = extend(Spec, {
       obj[key] = specs[key].isSpec ? specs[key] : new Spec(specs[key])
       return obj
     }, {})
-    this.specName = name || 'keys { ' + this.keys.join(', ') + ' }'
+    this.specName = name || 'objectOf({ ' + this.keys.join(', ') + ' })'
     if (this.keys.every(key => this.specs[key].hasExamples())) {
       this.exampleIterable = new FunctionIterable(() => {
         return this.keys.reduce((example, key) => {

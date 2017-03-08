@@ -2,9 +2,9 @@
 
 Write specification for data, assert validity and generate examples.
 
-Specifications are built from plain predicate functions (returning `true` or
-`false` depending on wether the specification is met or not) and can be composed
-together.
+Specifications are built from plain predicate functions returning `true` or
+`false` depending on whether the specification is met or not, and can be
+composed together.
 
 Once some specification is built, it can be used to validate data and to
 generate example data.
